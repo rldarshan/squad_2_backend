@@ -42,11 +42,6 @@ router.post('/register', [
     body('name').notEmpty().withMessage('Name is required'),
     body('email').notEmpty().isEmail().withMessage('Valid email is required'),
     body('password').notEmpty().isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
-    body('phoneNumber').isLength({ min: 10, max: 10 }).withMessage('Mobile number should contains 10 digits'),
-    body('address').optional(),
-    body('consent').isBoolean(),
-    body('bloodGroup').isString(),
-    body('birthDate').optional(),
     body('role').notEmpty().isString().withMessage('Please select role'),
 ], registerUser);
 
