@@ -60,6 +60,15 @@ const loginUser = async (req, res) => {
     }
 };
 
+const logoutUser = async (req, res) => {
+    res.clearCookie('authToken', {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'strict',
+      });
+      res.status(200).json({ message: 'Logged out successfully' });
+}
+
 // CRUD Operations
 const getAllPatients = async (req, res) => {
     try {
@@ -118,4 +127,4 @@ const getHealthTips = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, getAllPatients, getUserById, updateUser, getHealthTips };
+module.exports = { registerUser, loginUser, logoutUser, getAllPatients, getUserById, updateUser, getHealthTips };

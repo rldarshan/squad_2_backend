@@ -3,6 +3,7 @@ const { body } = require('express-validator');
 const {
     registerUser,
     loginUser,
+    logoutUser,
     getAllPatients,
     getUserById,
     updateUser,
@@ -14,7 +15,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/users/register:
+ * /register:
  *   post:
  *     summary: Register a new user
  *     tags: [User]
@@ -32,6 +33,8 @@ const router = express.Router();
  *               password:
  *                 type: string
  *                 format: password
+ *              role:
+ *                 type: string
  *     responses:
  *       201:
  *         description: User registered successfully
@@ -46,7 +49,7 @@ router.post('/register', [
 
 /**
  * @swagger
- * /api/users/login:
+ * /login:
  *   post:
  *     summary: User login
  *     tags: [User]
@@ -73,9 +76,35 @@ router.post('/login', [
     body('password').notEmpty().withMessage('Password is required'),
 ], loginUser);
 
+
 /**
  * @swagger
- * /api/users:
+ * /logout:
+ *   post:
+ *     summary: User login
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Successful login
+ *       400:
+ *         description: Invalid credentials
+ */
+router.post('/logout', [
+    body('email').isEmail().withMessage('Valid email is required'),
+], logoutUser);
+
+/**
+ * @swagger
+ * /get_all_patients:
  *   get:
  *     summary: Get all users
  *     tags: [User]
@@ -91,7 +120,7 @@ router.get('/get_all_patients', getAllPatients);
 
 /**
  * @swagger
- * /api/users/{id}:
+ * /get_patient/{id}:
  *   get:
  *     summary: Get a user by ID
  *     tags: [User]
@@ -109,11 +138,11 @@ router.get('/get_all_patients', getAllPatients);
  *       404:
  *         description: User not found
  */
-router.get('/:id', authenticateToken, getUserById);
+router.get('get_patient/:id', authenticateToken, getUserById);
 
 /**
  * @swagger
- * /api/users/{id}:
+ * /update_user/{id}:
  *   put:
  *     summary: Update a user by ID
  *     tags: [User]
@@ -145,7 +174,7 @@ router.get('/:id', authenticateToken, getUserById);
  *       404:
  *         description: User not found
  */
-router.put('/:id', authenticateToken, [
+router.put('update_user/:id', authenticateToken, [
     body('name').optional().notEmpty().withMessage('Name cannot be empty'),
     body('email').optional().isEmail().withMessage('Valid email is required'),
     body('password').optional().isLength({ min: 6 }).withMessage('Password must be at least 6 characters long'),
