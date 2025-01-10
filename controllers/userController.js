@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
-const User = require('../models/userModel');
 const Patient  = require('../models/patientModel');
 const HealthTips  = require('../models/healthTipsModel');
 const logger = require('../config/logger');
@@ -13,11 +12,12 @@ const registerUser = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-    const { name, email, password } = req.body;
+    const { name, email, password,phoneNumber,address,consent,bloodGroup,birthDate ,role} = req.body;
+   
     try {
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = new User({ name, email, password: hashedPassword });
+        const user = new Patient({ name, email, password: hashedPassword, phoneNumber, address, consent, bloodGroup, birthDate,role});
         await user.save();
 
         logger.info('User registered successfully', { email });
