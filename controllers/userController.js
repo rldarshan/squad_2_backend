@@ -145,6 +145,24 @@ const getAppointments = async (req, res) => {
         logger.error('Error fetching appointments:', err);
         res.status(500).send(err.message);
     }
-}
+};
 
-module.exports = { registerUser, loginUser, logoutUser, getAllPatients, getUserById, updateUser, getHealthTips, getAppointments };
+const bookAppointment = async (req, res) => {
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
+
+    console.log("bookAppointment == ", req.body);
+    const { appointment_date, doctorId, reasonForVisit, patientId, timeSlot } = req.body;
+    try {
+        const appointment = new Appointment({ appointment_date, doctorId, reasonForVisit, patientId, timeSlot, createdAt: new Date() });
+        await appointment.save();
+
+        logger.info('Appointment booked successfully');
+        res.status(201).send('Appointment booked successfully');
+    } catch (err) {
+        logger.error('Error booking appointment in user:', err);
+        res.status(400).send(err.message);
+    }
+};
+
+module.exports = { registerUser, loginUser, logoutUser, getAllPatients, getUserById, updateUser, getHealthTips, getAppointments, bookAppointment };

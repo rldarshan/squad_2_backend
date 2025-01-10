@@ -8,7 +8,8 @@ const {
     getUserById,
     updateUser,
     getHealthTips,
-    getAppointments
+    getAppointments,
+    bookAppointment
 } = require('../controllers/userController');
 const authenticateToken = require('../middlewares/authMiddleware');
 
@@ -212,5 +213,36 @@ router.get('/get_health_tips', getHealthTips)
  *         description: Unauthorized
  */
 router.get('/get_appointments', getAppointments)
+
+/**
+ * @swagger
+ * /book_appointment:
+ *   post:
+ *     summary: Book appointment
+ *     tags: [User]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+    *              appointment_date:
+    *                  type: string
+    *              patientId:
+    *                  type: string
+    *              reasonForVisit:
+    *                  type: string
+    *              doctorId:
+    *                  type: string
+    *              timeSlot:
+    *                  type: string
+ *     responses:
+ *       200:
+ *         description: Appointment booking Successful
+ *       400:
+ *         description: Invalid credentials
+ */
+router.post('/book_appointment', bookAppointment);
 
 module.exports = router;
