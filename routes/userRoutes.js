@@ -8,6 +8,7 @@ const {
     getUserById,
     updateUser,
     getHealthTips,
+    getAppointments
 } = require('../controllers/userController');
 const authenticateToken = require('../middlewares/authMiddleware');
 
@@ -195,5 +196,21 @@ router.put('update_user/:id', authenticateToken, [
  *         description: Unauthorized
  */
 router.get('/get_health_tips', getHealthTips)
+
+/**
+ * @swagger
+ * /get_appointments:
+ *   get:
+ *     summary: Get all appointments
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: List of appointments
+ *       401:
+ *         description: Unauthorized
+ */
+router.get('/get_appointments', getAppointments)
 
 module.exports = router;

@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 const Doctor = require('../models/doctorModel');
 const Patient  = require('../models/patientModel');
 const HealthTips  = require('../models/healthTipsModel');
+const Appointment  = require('../models/appointmentModel'); 
 const logger = require('../config/logger');
 
 JWT_SECRET = process.env.JWT_SECRET || 'T35t@JWT#Secrete';
@@ -35,13 +36,16 @@ const loginUser = async (req, res) => {
 
     const { email, password } = req.body;
     try {
-        const patient = await Patient.findOne({ email });
-        let user = patient;
-        if (!patient) {
-            const doctor = await Doctor.findOne({ email });
-            user = doctor
-            if (!doctor) return res.status(404).send('User not found');
-        }
+        // const patient = await Patient.findOne({ email });
+        // let user = patient;
+        // if (!patient) {
+        //     const doctor = await Doctor.findOne({ email });
+        //     user = doctor
+        //     if (!doctor) return res.status(404).send('User not found');
+        // }
+
+        const user = await Patient.findOne({ email });
+        if (!user) return res.status(404).send('User not found');
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) return res.status(400).send('Invalid password');
@@ -132,4 +136,15 @@ const getHealthTips = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, logoutUser, getAllPatients, getUserById, updateUser, getHealthTips };
+const getAppointments = async (req, res) => {
+    try {
+        logger.info('Fetching all appointments');
+        const appointment = await Appointment.find();
+        res.json(appointment);
+    } catch (err) {
+        logger.error('Error fetching appointments:', err);
+        res.status(500).send(err.message);
+    }
+}
+
+module.exports = { registerUser, loginUser, logoutUser, getAllPatients, getUserById, updateUser, getHealthTips, getAppointments };
