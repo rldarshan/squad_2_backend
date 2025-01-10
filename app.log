@@ -39,3 +39,6 @@
 {"level":"info","message":"Server running on port http://localhost:4000","timestamp":"2025-01-10T09:39:25.994Z"}
 {"level":"info","message":"Swagger docs available at http://localhost:4000/api-docs","timestamp":"2025-01-10T09:39:25.999Z"}
 {"level":"info","message":"MongoDB connected","timestamp":"2025-01-10T09:39:40.799Z"}
+{"level":"info","message":"Server running on port http://localhost:4000","timestamp":"2025-01-10T09:43:09.470Z"}
+{"level":"info","message":"Swagger docs available at http://localhost:4000/api-docs","timestamp":"2025-01-10T09:43:09.477Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2025-01-10T09:43:35.600Z"}

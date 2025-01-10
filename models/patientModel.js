@@ -11,6 +11,7 @@ const patientSchema = new mongoose.Schema({
     birthDate: { type: Date },  
     role: {type: String, required: true},
     lastLoggedIn: {type: Date, default: Date.now},
+    creacreatedAt: {type: String }
 });
 
 module.exports = mongoose.model('Patients', patientSchema);

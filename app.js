@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db');
 const logger = require('./config/logger');
+const cookieParser = require('cookie-parser');
 const userRoutes = require('./routes/userRoutes');
 const errorHandler = require('./middlewares/errorMiddleware');
 const { swaggerDocs, swaggerUi } = require('./config/swagger');
@@ -10,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Middleware
-app.use(express.json(), cors());
+app.use(express.json(), cors(), cookieParser());
 
 // Database connection
 connectDB('mongodb+srv://Darshan:T35tpassword@cluster0.jgw8y.mongodb.net/healthcare');  // 'mongodb://127.0.0.1:27017/userDB'   // process.env.MONGO_URI
