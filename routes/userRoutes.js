@@ -6,7 +6,7 @@ const {
     getAllUsers,
     getUserById,
     updateUser,
-    deleteUser,
+    getHealthTips,
 } = require('../controllers/userController');
 const authenticateToken = require('../middlewares/authMiddleware');
 
@@ -153,24 +153,18 @@ router.put('/:id', authenticateToken, [
 
 /**
  * @swagger
- * /api/users/{id}:
- *   delete:
- *     summary: Delete a user by ID
+ * /get_health_tips:
+ *   get:
+ *     summary: Get all health tips
  *     tags: [User]
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - name: id
- *         in: path
- *         required: true
- *         schema:
- *           type: string
  *     responses:
  *       200:
- *         description: User deleted successfully
- *       404:
- *         description: User not found
+ *         description: List of health tips
+ *       401:
+ *         description: Unauthorized
  */
-router.delete('/:id', authenticateToken, deleteUser);
+router.get('/get_health_tips', getHealthTips)
 
 module.exports = router;

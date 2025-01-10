@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
-const User = require('../models/userModel');
+const { User, HealthTips } = require('../models/userModel');
 const logger = require('../config/logger');
 
 JWT_SECRET = process.env.JWT_SECRET || 'T35t@JWT#Secrete';
@@ -96,17 +96,15 @@ const updateUser = async (req, res) => {
     }
 };
 
-const deleteUser = async (req, res) => {
+const getHealthTips = async (req, res) => {
     try {
-        const user = await User.findByIdAndDelete(req.params.id);
-        if (!user) return res.status(404).send('User not found');
-
-        logger.info('User deleted successfully', { id: req.params.id });
-        res.send('User deleted successfully');
+        logger.info('Fetching all health tips');
+        const healthTips = await HealthTips.find();
+        res.json(healthTips);
     } catch (err) {
-        logger.error('Error deleting user:', err);
+        logger.error('Error fetching health tips:', err);
         res.status(500).send(err.message);
     }
 };
 
-module.exports = { registerUser, loginUser, getAllUsers, getUserById, updateUser, deleteUser };
+module.exports = { registerUser, loginUser, getAllUsers, getUserById, updateUser, getHealthTips };
