@@ -3,7 +3,7 @@ const { body } = require('express-validator');
 const {
     registerUser,
     loginUser,
-    getAllUsers,
+    getAllPatients,
     getUserById,
     updateUser,
     getHealthTips,
@@ -87,7 +87,7 @@ router.post('/login', [
  *       401:
  *         description: Unauthorized
  */
-router.get('/', getAllUsers);
+router.get('/get_all_patients', getAllPatients);
 
 /**
  * @swagger

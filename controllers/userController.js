@@ -1,7 +1,9 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { validationResult } = require('express-validator');
-const { User, HealthTips } = require('../models/userModel');
+const User = require('../models/userModel');
+const Patient  = require('../models/patientModel');
+const HealthTips  = require('../models/healthTipsModel');
 const logger = require('../config/logger');
 
 JWT_SECRET = process.env.JWT_SECRET || 'T35t@JWT#Secrete';
@@ -50,13 +52,13 @@ const loginUser = async (req, res) => {
 };
 
 // CRUD Operations
-const getAllUsers = async (req, res) => {
+const getAllPatients = async (req, res) => {
     try {
-        logger.info('Fetching all users');
-        const users = await User.find();
+        logger.info('Fetching all patients');
+        const users = await Patient.find();
         res.json(users);
     } catch (err) {
-        logger.error('Error fetching users:', err);
+        logger.error('Error fetching patients:', err);
         res.status(500).send(err.message);
     }
 };
@@ -107,4 +109,4 @@ const getHealthTips = async (req, res) => {
     }
 };
 
-module.exports = { registerUser, loginUser, getAllUsers, getUserById, updateUser, getHealthTips };
+module.exports = { registerUser, loginUser, getAllPatients, getUserById, updateUser, getHealthTips };
