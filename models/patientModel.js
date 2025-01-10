@@ -10,6 +10,7 @@ const patientSchema = new mongoose.Schema({
     password: { type: String, required: true },
     birthDate: { type: Date, required: true },
     lastLoggedIn: {type: Date, default: Date.now},
+    creacreatedAt: {type: String }
 });
 
 module.exports = mongoose.model('Patient', patientSchema);
