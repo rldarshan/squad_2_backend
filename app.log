@@ -42,3 +42,11 @@
 {"level":"info","message":"Server running on port http://localhost:4000","timestamp":"2025-01-10T09:43:09.470Z"}
 {"level":"info","message":"Swagger docs available at http://localhost:4000/api-docs","timestamp":"2025-01-10T09:43:09.477Z"}
 {"level":"info","message":"MongoDB connected","timestamp":"2025-01-10T09:43:35.600Z"}
+{"level":"info","message":"Fetching all patients","timestamp":"2025-01-10T10:07:13.609Z"}
+{"level":"info","message":"Server running on port http://localhost:4000","timestamp":"2025-01-10T10:17:58.525Z"}
+{"level":"info","message":"Swagger docs available at http://localhost:4000/api-docs","timestamp":"2025-01-10T10:17:58.531Z"}
+{"code":"EREFUSED","hostname":"_mongodb._tcp.cluster0.jgw8y.mongodb.net","level":"error","message":"MongoDB connection error: querySrv EREFUSED _mongodb._tcp.cluster0.jgw8y.mongodb.net","stack":"Error: querySrv EREFUSED _mongodb._tcp.cluster0.jgw8y.mongodb.net\n    at QueryReqWrap.onresolve [as oncomplete] (node:internal/dns/promises:293:17)","syscall":"querySrv","timestamp":"2025-01-10T10:18:00.783Z"}
+{"level":"info","message":"Server running on port http://localhost:4000","timestamp":"2025-01-10T10:18:12.571Z"}
+{"level":"info","message":"Swagger docs available at http://localhost:4000/api-docs","timestamp":"2025-01-10T10:18:12.577Z"}
+{"level":"info","message":"MongoDB connected","timestamp":"2025-01-10T10:18:37.781Z"}
+{"email":"rama@gmail.com","level":"info","message":"User logged in successfully","timestamp":"2025-01-10T10:18:45.415Z"}
