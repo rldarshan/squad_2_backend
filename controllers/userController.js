@@ -35,7 +35,7 @@ const loginUser = async (req, res) => {
 
     const { email, password } = req.body;
     try {
-        const user = await User.findOne({ email });
+        const user = await Patient.findOne({ email });
         if (!user) return res.status(404).send('User not found');
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -44,7 +44,16 @@ const loginUser = async (req, res) => {
         const token = jwt.sign({ _id: user._id, email: user.email }, JWT_SECRET, { expiresIn: '1h' });
 
         logger.info('User logged in successfully', { email });
-        res.header('Authorization', token).send({ message: "Login successful", "jwtToken": token });
+        
+        // Set the token in an HTTP-only cookie
+        res.cookie('authToken', token, {
+            httpOnly: true, // Prevent JavaScript access
+            secure: process.env.NODE_ENV === 'production', // Use HTTPS in production
+            sameSite: 'strict', // Prevent CSRF
+            maxAge: 3600000, // 1 hour
+        }).send({ message: "Login successful" });
+
+        // res.header('Authorization', token).send({ message: "Login successful", "jwtToken": token });
     } catch (err) {
         logger.error('Error logging in user:', err);
         res.status(400).send(err.message);

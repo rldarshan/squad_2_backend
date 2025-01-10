@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const logger = require('../config/logger');
 
 const authenticateToken = (req, res, next) => {
-    const token = req.header('Authorization');
+    const token = req.cookies.authToken;   //  req.header('Authorization');
     if (!token) return res.status(401).send('Access Denied');
 
     try {
