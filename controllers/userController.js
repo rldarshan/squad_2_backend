@@ -35,8 +35,15 @@ const loginUser = async (req, res) => {
 
     const { email, password } = req.body;
     try {
-        const user = await Patient.findOne({ email });
-        if (!user) return res.status(404).send('User not found');
+        const patient = await Patient.findOne({ email });
+        let user = patient;
+        if (!patient) {
+            return res.status(404).send('Patient not found'); 
+        } else {
+            const doctor = await Doctor.findOne({ email });
+            user = doctor
+            if (!doctor) return res.status(404).send('Doctor not found');
+        }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if (!isPasswordValid) return res.status(400).send('Invalid password');

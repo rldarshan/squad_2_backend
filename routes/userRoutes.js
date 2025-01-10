@@ -33,7 +33,7 @@ const router = express.Router();
  *               password:
  *                 type: string
  *                 format: password
- *              role:
+ *               role:
  *                 type: string
  *     responses:
  *       201:
@@ -138,7 +138,7 @@ router.get('/get_all_patients', getAllPatients);
  *       404:
  *         description: User not found
  */
-router.get('get_patient/:id', authenticateToken, getUserById);
+router.get('/get_patient/:id', getUserById);  //  authenticateToken, 
 
 /**
  * @swagger
